@@ -9,13 +9,17 @@ module Crystalball
     class Configuration
       attr_writer :map_storage
       attr_writer :map_class
-      attr_accessor :commit
-      attr_accessor :version
+      attr_accessor :commit, :version, :compact_map
 
       attr_reader :strategies
 
       def initialize
         @strategies = StrategiesCollection.new
+        @compact_map = true
+      end
+
+      def compact_map?
+        !!@compact_map
       end
 
       def map_class
@@ -23,7 +27,7 @@ module Crystalball
       end
 
       def map_storage_path
-        @map_storage_path ||= Pathname('execution_map.yml')
+        @map_storage_path ||= Pathname('tmp/crystalball_data.yml')
       end
 
       def map_storage_path=(value)
